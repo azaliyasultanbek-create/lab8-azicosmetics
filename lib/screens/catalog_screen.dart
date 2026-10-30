@@ -1,22 +1,15 @@
-
 import 'package:flutter/material.dart';
 import '../models/product.dart';
-
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
-
   @override
   State<CatalogScreen> createState() => _CatalogScreenState();
 }
-
 class _CatalogScreenState extends State<CatalogScreen> {
   List<Product> catalogProducts = List.from(products);
-
   bool isGridView = false;
-
   Future<void> refreshProducts() async {
     await Future.delayed(const Duration(milliseconds: 1500));
-
     final newProduct = Product(
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       title: 'New Beauty Product',
@@ -27,17 +20,14 @@ class _CatalogScreenState extends State<CatalogScreen> {
       category: 'New Arrival',
       rating: 4.8,
     );
-
     setState(() {
       catalogProducts.insert(0, newProduct);
     });
   }
-
   void deleteProduct(Product product, int index) {
     setState(() {
       catalogProducts.remove(product);
     });
-
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('${product.title} deleted'),
@@ -55,13 +45,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ),
     );
   }
-
   void resetCatalog() {
     setState(() {
       catalogProducts = List.from(products);
     });
   }
-
   Widget buildProductInfo(Product product) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +86,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ],
     );
   }
-
   Widget buildListItem(Product product, int index) {
     return Dismissible(
       key: ValueKey(product.id),
@@ -131,7 +118,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ),
     );
   }
-
   Widget buildGridItem(Product product, int index) {
     return Dismissible(
       key: ValueKey(product.id),
@@ -178,7 +164,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
